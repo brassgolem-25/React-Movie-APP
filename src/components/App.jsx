@@ -11,7 +11,7 @@ function App(){
     const [searchVal, setSearch] = useState('');
     const [fav,setFav] = useState([]);
 
-    async function  movieRequest(searchVal) {
+    const  movieRequest= async (searchVal) => {
            const url = `http://www.omdbapi.com/?s=${searchVal}&apikey=f12fe040`;
 
            const response = await fetch(url);
@@ -24,13 +24,15 @@ function App(){
 
     useEffect (() => {
         movieRequest(searchVal);
-    },[searchVal])
+    },[searchVal]);
 
     useEffect(() => {
       const movieFav = JSON.parse(
         localStorage.getItem('react-movie-app-favourites')
       )
+      if(movieFav){
       setFav(movieFav)
+    }
     },[]);
 
     function saveToLocal(items){
